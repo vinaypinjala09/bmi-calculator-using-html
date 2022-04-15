@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Know your BMI</title>
+</head>
+<style>
+{
+ padding: 0;
+	margin: 0;
+	text-decoration: none;
+	list-style: none;
+	box-sizing: border-box;
+
+}
+body{
+	background-image : url(photo.jpg) ;
+ 
+	font-family: montserrat;
+}
+nav{
+	background: #0082e6;
+	height: 100px;
+	width: 100%;
+}
+label.logo{
+	color: white;
+	font-size: 35px;
+	line-height: 60px;
+	padding: 0 100px;
+	font-weight: bold;
+}
+nav ul{
+	float: right;
+	margin-right: 10px;
+}
+nav ul li{
+	display: inline-block;
+	line-height: 80px;
+	margin: 0 5px;
+}
+nav ul li a{
+	color: white;
+	font-size: 17px;
+	padding: 7px 13px;
+	border-radius: 3px;
+	text-transform: uppercase;
+}
+a.active,a:hover{
+	background: #1b9ff;
+	transition: .5s;
+}
+.checkbtn{
+	font-size: 30px;
+	color: white;
+	float: right;
+	line-height: :80px;
+	margin-right: :40px;
+	cursor: pointer;
+	display: none;
+}
+#check{
+	display: none;
+}
+@media (max-width: 952px){
+	label.logo{
+		font-size: 30px;
+		padding-left: 50px;
+	}
+	nav ul li a{
+		font-size: 16px;
+	}
+}
+@media (max-width: 858px){
+	.checkbtn{
+		display: block;
+	}
+	ul{
+		position: fixed;
+		width: 100%;
+		height: 100vh;
+		background: #2c3e50;
+		top: 80px;
+		left: -100%;
+		text-align: center;
+		transition: all .5s;
+	}
+	nav ul li{
+		display: block;
+		margin: 50px 0;
+		line-height: 30px;
+	}
+	nav ul li a{
+		font-size: 20px;
+	}
+	a:hover,a.active{
+		background: none;
+		color: #0082e6;
+	}
+	#check:checked ~ ul{
+		left: 0;
+	}
+}
+section{
+	background: url('https://www.gannett-cdn.com/-mm-/b96970ae6ccccfcee80a80b4e5789aa24e82603f/c=0-37-726-447/local/-/media/2017/07/10/GreatFalls/GreatFalls/636352994112659591-uscpcent02-6pudbvjc9w9ucd8jaiv-original.jpg?width=3200&height=1680&fit=crop') no-repeat;
+	background-size: cover;
+	height: calc(100vh - 80px);
+}
+</style>
+<style>
+body { background-color : mediumpurple; } .container 
+/* Container Class*/ { /* Giving width, color and allignment of class */ width : 400px ; 
+	background-color : lightgreen; position : absolute ; top : 50% ; left : 50% ; 
+	transform : translateX(-50%) translateY(-50%) ; padding : 50px ; box-shadow : 10px 10px 5px 0 rgba(0,0,0,0.75); 
+	} h1 /*Styling the tag*/ { color : red ; text-align : center ; } 
+	p /*Styling the Paragraph*/ { color : black ; } #height , #weight /*Styling the IDs*/ { width : 100% ; height : 35px ; outline : none ; }
+	 button { font-size : 21px ; width : 40% ; height : 35px ; margin-top : 25px ; border-radius : 11px ; background-color : red ; color : white ; }
+	  #result { color : white ; text-align : center; margin-top : 20px ; font-size : 20px ; }
+	</style>
+
+<body>
+<nav>
+	<input type="checkbox" id="check">
+	<label for="check"class="checkbtn">
+		<i class="fas fa-bars"></i></label>
+	<label class="logo">BMICalculator</label>
+	<div class = "container">
+        <h1>BMI Calculator</h1>
+
+        <!-- Option for providing height and weight to the user-->
+        <p>Height (in cm)</p>
+        <input type="text" id = "height">
+
+        <p>Weight (in kg)</p>
+        <input type = "text" id = "weight">
+
+        <button id = "btn">Calculate</button>
+
+        <div id = "result"></div>
+    </div>
+
+	<ul>
+		<li><a class="active" href="#"></a></li>
+		<li><a href="https://en.wikipedia.org/wiki/Body_mass_index">About</a></li>
+		<li><a href ="Tips1.html">tips to reduce weight</a>
+</p></li>
+		<li><a href ="Tips2.html">tips to gain weight</a></li>
+		
+	</ul>
+</nav>
+<section></section>
+</body>
+<script>
+	 window.onload = () =>
+	{
+    let button = document.querySelector('#btn');
+    button.addEventListener('click',calculateBMI);         //function for calculating BMI
+}
+
+function calculateBMI()
+{
+    //getting input from user into height variable. Input is string so typecasting is necessary.
+    let height = parseInt(document.querySelector('#height').value);     
+
+    //getting input from user into weight variable. Input is string so typecasting is necessary.
+    let weight = parseInt(document.querySelector('#weight').value);
+
+    let result = document.querySelector('#result');       
+
+    console.log(height);
+    //checking if user is providing a proper value or not
+    if(height === '' || isNaN(height))                   
+        result.innerHTML = 'Provide a valid Height!';
+
+    else if(weight === '' || isNaN(weight))
+        result.innerHTML = 'Provide a valid Weight!';
+
+    //when both the input is valid, calculate the bmi
+    else
+    {
+        let bmi = (weight / ((height * height) / 10000)).toFixed(2);               //fixing upto 2 decimal places
+
+        //dividing as per the bmi conditions/*
+        if(bmi < 18.6)
+            result.innerHTML = `Under Weight 
+             <span>${bmi}</span>\r`;
+            
+        else if(bmi >= 18.6 && bmi < 24.9)
+           result.innerHTML = `Normal : <span>${bmi}</span>`;
+        else
+           result.innerHTML = `Over Weight : <span>${bmi}</span>`;
+    }
+}
+</script>
+
+</html>
